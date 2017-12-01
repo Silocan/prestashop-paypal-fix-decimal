@@ -1,5 +1,10 @@
 # prestashop-paypal-fix-decimal v3.11.4
 
+Fix decimal bug when price without tax has been used in prestashop.
+The fix concern the express checkout.
+Thanks Zebx (https://github.com/Zebx) for the initial fix.
+
+
 ## About
 
 Let customer pay with PayPal Express Checkout or PayPal Integral Evolution.
