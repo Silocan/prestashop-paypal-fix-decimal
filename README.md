@@ -5,7 +5,7 @@ The fix concern the express checkout.<br />
 Thanks Zebx (https://github.com/Zebx) for the initial fix.<br />
 <br /><br />
 Fix for prestashop 1.6<br />
-Paypal module 3.11.4
+Paypal module 3.11.6
 
 
 ## About

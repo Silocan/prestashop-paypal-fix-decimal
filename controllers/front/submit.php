@@ -1,6 +1,6 @@
 <?php
 /**
- * 2007-2017 PrestaShop
+ * 2007-2018 PrestaShop
  *
  * NOTICE OF LICENSE
  *
@@ -19,7 +19,7 @@
  * needs please refer to http://www.prestashop.com for more information.
  *
  *  @author    PrestaShop SA <contact@prestashop.com>
- *  @copyright 2007-2017 PrestaShop SA
+ *  @copyright 2007-2018 PrestaShop SA
  *  @version  Release: $Revision: 13573 $
  *  @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  *  International Registered Trademark & Property of PrestaShop SA
@@ -44,6 +44,12 @@ class PayPalSubmitModuleFrontController extends ModuleFrontController
         $this->id_module = (int) Tools::getValue('id_module');
         $this->id_order = (int) Tools::getValue('id_order');
         $order = new Order($this->id_order);
+        // fix security issue
+        if($order->id_cart != Tools::getValue('id_cart') || $order->secure_key != Tools::getValue('key'))
+        {
+            Tools::redirect($this->context->link->getPageLink('history'));
+        }
+
         $order_state = new OrderState($order->current_state);
         $paypal_order = PayPalOrder::getOrderById($this->id_order);
 

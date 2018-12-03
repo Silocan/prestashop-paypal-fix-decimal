@@ -33,15 +33,11 @@
 			{else}
 				<a href="javascript:void(0)" class="paypal" onclick="$('#paypal_payment_form_payment').submit();" title="{l s='Pay with PayPal' mod='paypal'}">
 			{/if}
-				{if isset($use_mobile) && $use_mobile}
-					<img src="{$base_dir_ssl|escape:'htmlall':'UTF-8'}modules/paypal/views/img/logos/express_checkout_mobile/CO_{$PayPal_lang_code|escape:'htmlall':'UTF-8'}_orange_295x43.png" />
-				{else}
 					{if isset($braintreeToken)}
                     {l s='Pay with PayPal' mod='paypal'}
                     {else}
 					{l s='Pay with your card or your PayPal account' mod='paypal'}
                     {/if}
-				{/if}
 				
 			</a>
 		</p>

@@ -1,6 +1,6 @@
 <?php
 /**
- * 2007-2017 PrestaShop
+ * 2007-2018 PrestaShop
  *
  * NOTICE OF LICENSE
  *
@@ -19,7 +19,7 @@
  * needs please refer to http://www.prestashop.com for more information.
  *
  *  @author    PrestaShop SA <contact@prestashop.com>
- *  @copyright 2007-2017 PrestaShop SA
+ *  @copyright 2007-2018 PrestaShop SA
  *  @version  Release: $Revision: 13573 $
  *  @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  *  International Registered Trademark & Property of PrestaShop SA
@@ -40,7 +40,7 @@ class PrestaBraintree
     {
         $this->_checkToken();
 
-        $this->gateway = new Braintree_Gateway(['accessToken' => Configuration::get('PAYPAL_BRAINTREE_ACCESS_TOKEN') ]);
+        $this->gateway = new Braintree_Gateway(array('accessToken' => Configuration::get('PAYPAL_BRAINTREE_ACCESS_TOKEN')));
         $this->error = '';
     }
 
@@ -77,13 +77,13 @@ class PrestaBraintree
         $country_shipping = new Country($address_shipping->id_country);
 
         try {
-            $data = [
+            $data = array(
                 'amount'                => $cart->getOrderTotal(),
                 'paymentMethodNonce'    => $token_payment,//'fake-processor-declined-visa-nonce',//
                 'merchantAccountId'     => $id_account_braintree,
                 'orderId'               => $cart->id,
                 'channel'               => 'PrestaShop_Cart_Braintree',
-                'billing' => [
+                'billing' => array(
                     'firstName'         => $address_billing->firstname,
                     'lastName'          => $address_billing->lastname,
                     'company'           => $address_billing->company,
@@ -92,8 +92,8 @@ class PrestaBraintree
                     'locality'          => $address_billing->city,
                     'postalCode'        => $address_billing->postcode,
                     'countryCodeAlpha2' => $country_billing->iso_code,
-                ],
-                'shipping' => [
+                ),
+                'shipping' => array(
                     'firstName'         => $address_shipping->firstname,
                     'lastName'          => $address_shipping->lastname,
                     'company'           => $address_shipping->company,
@@ -102,16 +102,15 @@ class PrestaBraintree
                     'locality'          => $address_shipping->city,
                     'postalCode'        => $address_shipping->postcode,
                     'countryCodeAlpha2' => $country_shipping->iso_code,
-                ],
+                ),
                 "deviceData"            => $device_data,
-
-                'options' => [
+                'options' => array(
                     'submitForSettlement' => !Configuration::get('PAYPAL_CAPTURE'),
-                    'three_d_secure' => [
+                    'three_d_secure' => array(
                         'required' => Configuration::get('PAYPAL_USE_3D_SECURE')
-                    ]
-                ]
-            ];
+                    )
+                )
+            );
             
             $result = $this->gateway->transaction()->sale($data);
 
